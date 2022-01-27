@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Inter", sans-serif;
+  height: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  height: 100vh;
+}
+
+#root {
+  height: 100%;
+}
+
+@keyframes shrink-bounce {
+  0% {
+    transform: scale(1);
+  }
+  33% {
+    transform: scale(0.85);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes checkbox-check {
+  0% {
+    width: 0;
+    height: 0;
+    border-color: #fff;
+    transform: translate3d(0, 0, 0) rotate(45deg);
+  }
+  33% {
+    width: 0.8em;
+    height: 0;
+    transform: translate3d(0, 0, 0) rotate(45deg);
+  }
+  100% {
+    width: 0.5em;
+    height: 1em;
+    border-color: #fff;
+    transform: translate3d(0, -0.5em, 0) rotate(45deg);
+  }
+}
+
+@keyframes strike {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes buble {
+  0% {
+    width: 1.6rem;
+    height: 1.6rem;
+    top: calc(50% - 7px);
+    left: -3.5rem;
+  }
+  45% {
+    left: 0;
+    width: 2rem;
+    height: 2px;
+    top: calc(50% - 1px);
+  }
+  60% {
+    width: 0;
+    height: 0;
+  }
+}
+
+#portals {
+  position: fixed;
+  z-index: 20;
+}
+
+#portals:empty {
+  display: none;
+}
+
+input {
+  font-family: "Inter", sans-serif;
+}
+
+
+.active {
+  .tabs {
+        --tw-drop-shadow: drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.06));
+    filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+    background: #fff;
+  }
+}
+
+.no_details h1{
+  font-size: 2rem;
+  line-height: 28px;
+  font-weight: 500;
+  color: #575a6380;
+  text-align: center;
+  max-width: 92%;
+  margin-inline: auto;
+}
+
+.no_details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding-top: 4rem;
+}
+
+.no_details i {
+  font-size: 4rem;
+  color: #bfbfbf;
+}
