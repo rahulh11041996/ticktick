@@ -104,27 +104,3 @@ input {
     background: #fff;
   }
 }
-
-.no_details h1{
-  font-size: 2rem;
-  line-height: 28px;
-  font-weight: 500;
-  color: #575a6380;
-  text-align: center;
-  max-width: 92%;
-  margin-inline: auto;
-}
-
-.no_details {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 1.6rem;
-  padding-top: 4rem;
-}
-
-.no_details i {
-  font-size: 4rem;
-  color: #bfbfbf;
-}
