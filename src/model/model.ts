@@ -22,8 +22,13 @@ export interface IStoreContextProps {
 }
 
 export interface IActions {
-    types : ACTIONS;
+    types : Omit<ACTIONS, ACTIONS.GET_TODO>;
     payload : ITodoList;
+}
+
+export interface IAsyncActions {
+    types : ACTIONS.GET_TODO,
+    payload : ITodoList[]
 }
 
 export interface ITableHeaderProps {
@@ -90,12 +95,17 @@ export interface IStatusCounts {
     pending : number;
 }
 
+export interface IRouteBuilder {
+    path: string,
+    countType: keyof IStatusCounts,
+    label: string
+}
+
 // enums
 export const enum ACTIONS {
+    GET_TODO = 'get-todo',
     ADD_TODO = 'add-todo',
-    EDIT_TODO = 'edit-todo',
-    DELETE_TODO = 'delete-todo',
-    UPDATE_TODO = 'update-todo'
+    EDIT_TODO = 'edit-todo'
 }
 
 export const enum ROUTES {

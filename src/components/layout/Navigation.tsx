@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { DICTIONARY, ROUTE_BUILDER } from "../../assets/data/dict";
 import {
   HeaderWrapper,
   LogoText,
@@ -9,7 +10,7 @@ import {
   TabsCount,
   TabsText,
 } from "../../assets/styles/styles";
-import { DEFAULT_STATUS_COUNT, ITodoList, ROUTES } from "../../model/model";
+import { DEFAULT_STATUS_COUNT, IRouteBuilder, IStatusCounts, ITodoList, ROUTES } from "../../model/model";
 import { StoreContext } from "../../store/StoreContext";
 
 export default function Navigation() {
@@ -43,33 +44,19 @@ export default function Navigation() {
   return (
     <NavigationWrapper>
       <HeaderWrapper>
-        <LogoText>Tick Tick</LogoText>
+        <LogoText>{DICTIONARY.APP_TITLE}</LogoText>
       </HeaderWrapper>
       <TabContainer>
-        <NavLink to="/">
-          <Tabs className="tabs">
-            <TabsCount>{statusCounts.allCount}</TabsCount>
-            <TabsText>All Todos</TabsText>
-          </Tabs>
-        </NavLink>
-        <NavLink to={"/" + ROUTES.COMPLETED}>
-          <Tabs className="tabs">
-            <TabsCount>{statusCounts.completed}</TabsCount>
-            <TabsText>Completed</TabsText>
-          </Tabs>
-        </NavLink>
-        <NavLink to={"/" + ROUTES.PENDING}>
-          <Tabs className="tabs">
-            <TabsCount>{statusCounts.pending}</TabsCount>
-            <TabsText>Pending</TabsText>
-          </Tabs>
-        </NavLink>
-        <NavLink to={"/" + ROUTES.DELETED}>
-          <Tabs className="tabs">
-            <TabsCount>{statusCounts.deleted}</TabsCount>
-            <TabsText>Deleted</TabsText>
-          </Tabs>
-        </NavLink>
+        {ROUTE_BUILDER.map((navigator: IRouteBuilder) => (
+          <NavLink to={ navigator.path } key={navigator.countType}>
+            <Tabs className="tabs">
+              <TabsCount>
+                { statusCounts[navigator.countType] }
+              </TabsCount>
+              <TabsText>{ navigator.label }</TabsText>
+            </Tabs>
+          </NavLink>
+        ))}
       </TabContainer>
     </NavigationWrapper>
   );

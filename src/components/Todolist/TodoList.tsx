@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { COUNTER_SORT_STATE, ITodoList, ROUTES } from "../../model/model";
 import { StoreContext } from "../../store/StoreContext";
 import NoData from "../shared/NoData/NoData";
@@ -12,9 +12,13 @@ export default function TodoList() {
 
   const { id } = useParams();
 
-  useEffect(() => {
-    setTodoList(COUNTER_SORT_STATE);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if(id !== ROUTES.COMPLETED && id !== ROUTES.DELETED && id !== ROUTES.PENDING && id !== undefined) navigate('/');
+    
+    setTodoList(COUNTER_SORT_STATE);
+    
     filterStoreBasedOnParams(id);
   }, [store, id]);
 

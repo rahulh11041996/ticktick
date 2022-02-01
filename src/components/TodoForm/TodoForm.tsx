@@ -1,11 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { DICTIONARY } from '../../assets/data/dict';
-import { StoreContext } from '../../store/StoreContext';
-import InputTextField from '../shared/Forms/InputTextField/InputTextArea';
-import { ACTIONS, FORM_STATE, IActions, IFormProps, ITodoList } from '../../model/model';
-import { PrimaryButton } from '../../assets/styles/styles';
+import React, { useContext, useEffect, useState } from "react";
+import { DICTIONARY } from "../../assets/data/dict";
+import { StoreContext } from "../../store/StoreContext";
+import InputTextField from "../shared/Forms/InputTextField/InputTextArea";
+import {
+  ACTIONS,
+  FORM_STATE,
+  IActions,
+  IFormProps,
+  ITodoList,
+} from "../../model/model";
+import { PrimaryButton } from "../../assets/styles/styles";
+import { postTodos } from "../../http/todos.api";
 
-export default function TodoForm({ isEditMode, editId, onFormButtonClick }: IFormProps) {
+export default function TodoForm({
+  isEditMode,
+  editId,
+  onFormButtonClick,
+}: IFormProps) {
   const { dispatch, todoList } = useContext(StoreContext);
 
   const [formState, setFormState] = useState(FORM_STATE);
@@ -20,12 +31,10 @@ export default function TodoForm({ isEditMode, editId, onFormButtonClick }: IFor
   }, [isEditMode]);
 
   const updateTodoList = () => {
-    const dispatchData: IActions = {
-      types: isEditMode ? ACTIONS.EDIT_TODO : ACTIONS.ADD_TODO,
-      payload: formState,
-    };
+    postTodos(formState, isEditMode).then((todoUpdateAction: IActions) =>
+      dispatch(todoUpdateAction)
+    );
 
-    dispatch(dispatchData);
     setFormState(FORM_STATE);
     onFormButtonClick();
   };
@@ -48,7 +57,7 @@ export default function TodoForm({ isEditMode, editId, onFormButtonClick }: IFor
         onFieldChange={onFormUpdate}
         state={formState.title}
         name="title"
-        type='text'
+        type="text"
         placeHolder={DICTIONARY.ENTER_TODO_TITLE}
         label={DICTIONARY.ENTER_TODO_TITLE}
       />
@@ -56,8 +65,8 @@ export default function TodoForm({ isEditMode, editId, onFormButtonClick }: IFor
         <InputTextField
           onFieldChange={onFormUpdate}
           state={formState.date}
-          name="date" 
-          type='date'
+          name="date"
+          type="date"
           placeHolder={DICTIONARY.ENTER_DATE}
           label={DICTIONARY.ENTER_DATE}
         />
@@ -65,8 +74,8 @@ export default function TodoForm({ isEditMode, editId, onFormButtonClick }: IFor
           onFieldChange={onFormUpdate}
           state={formState.tag}
           name="tag"
-          type='text'
-          placeHolder={DICTIONARY.ENTER_TYPE}
+          type="text"
+          placeHolder={DICTIONARY.ENTER_TYPE_PH}
           label={DICTIONARY.ENTER_TYPE}
         />
       </div>

@@ -6,12 +6,13 @@ import {
   StatusIndicator,
   TitleText,
 } from "../../../assets/styles/styles";
+import { postTodos } from "../../../http/todos.api";
 import {
-  ACTIONS,
   DEFAULT_EDIT_MODE,
   IActions,
   ITableHeaderProps,
-  ITableRowProps
+  ITableRowProps,
+  ITodoList
 } from "../../../model/model";
 import { StoreContext } from "../../../store/StoreContext";
 import TodoForm from "../../TodoForm/TodoForm";
@@ -32,11 +33,12 @@ export default function TableRow(props: ITableRowProps | ITableHeaderProps) {
    */
   const onStatusChanged = () => {
     if (!props.header) {
-      const dispatchData: IActions = {
-        types: ACTIONS.UPDATE_TODO,
-        payload: props.todoList,
+      const updatedTodo: ITodoList = {
+        ...props.todoList,
+        isCompleted: !(props.todoList.isCompleted),
       };
-      dispatch(dispatchData);
+
+      postTodos(updatedTodo, true).then((todoUpdateAction: IActions) => dispatch(todoUpdateAction));
     }
   };
 
@@ -45,11 +47,14 @@ export default function TableRow(props: ITableRowProps | ITableHeaderProps) {
    */
   const onDelete = () => {
     if (!props.header) {
-      const dispatchData: IActions = {
-        types: ACTIONS.DELETE_TODO,
-        payload: props.todoList,
+      const updatedTodo: ITodoList = {
+        ...props.todoList,
+        isDeleted: !props.todoList.isDeleted,
       };
-      dispatch(dispatchData);
+
+      postTodos(updatedTodo, true).then((todoUpdateAction: IActions) =>
+        dispatch(todoUpdateAction)
+      );
     }
   };
 
